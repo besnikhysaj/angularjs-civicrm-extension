@@ -8,7 +8,7 @@ Simple CiviCRM Extension with AngularJs
 
 - Adds a "Manage Memberships" link in your Civicrm Page
 
-- Sorts Memberships List by Name, Type, Start Date and End Date
+- Sorts Memberships List by "Name", "Type", "Start Date" and "End Date"
 
 - Filters the list of memberships by "Start Date", "From Start Date" and "To Start Date"
 
