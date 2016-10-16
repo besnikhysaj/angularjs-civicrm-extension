@@ -1,0 +1,74 @@
+<div class="crm-container">
+
+	<h1 crm-page-title>{{ts('Manage Memberships')}}</h1>
+
+	<div crm-ui-debug="Memberships"></div>
+
+	<div crm-ui-accordion="{title: ts('Filter Membership')}">
+		<form ng-enter="filterData(filter)">
+			<table class="form-layout">
+				<tr>
+					<td>
+						<label>Start Date</label>
+						<input ng-model="filter.start_date" name="start_date" type="date" class="twenty big crm-form-text">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>From Start Date</label>
+						<input ng-model="filter.from_start_date" name="from_start_date" type="date" class="twenty big crm-form-text">
+					</td>
+					<td>
+						<label>To Start Date</label>
+						<input ng-model="filter.to_start_date" name="to_start_date" type="date" class="twenty big crm-form-text">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<button ng-click="filterData(filter)" class="crm-form-submit default validate">{{ ts('Search') }}</button>
+						<button type="reset" class="crm-form-submit default validate">{{ ts('Reset') }}</button>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<br>
+
+	<h3>{{ ts('%1', {1: tableName}) }}</h3>
+
+	<div class="livesearch" style="padding-bottom:5px;width:100%;border-bottom: 1px solid #efefef;">
+		<label>{{ ts('Filter by name') }}</label>
+		<input ng-keyup="filterName(membersName)" ng-model="membersName" type="text" class="twenty big crm-form-text">
+	</div>
+
+	<p ng-show="!memberships.length">{{ ts('There is no results for your searching criteria. Please try again with a new search!') }}</p>
+	
+	<table ng-show="memberships.length" class="memberships" ng-model="memberships">
+		<tr>
+			<th>
+				<button ng-click="sortBy('name')">{{ ts('Name') }}</button>
+				<span class="sortorder" ng-show="propertyName === 'name'" ng-class="{reverse: reverse}"></span>
+			</th>
+			<th>
+				<button ng-click="sortBy('type')">{{ ts('Type') }}</button>
+				<span class="sortorder" ng-show="propertyName === 'type'" ng-class="{reverse: reverse}"></span>
+			</th>
+			<th>
+				<button ng-click="sortBy('start_date')">{{ ts('Start date') }}</button>
+				<span class="sortorder" ng-show="propertyName === 'start_date'" ng-class="{reverse: reverse}"></span>
+			</th>
+			<th>
+				<button ng-click="sortBy('end_date')">{{ ts('End date') }}</button>
+				<span class="sortorder" ng-show="propertyName === 'end_date'" ng-class="{reverse: reverse}"></span>
+			</th>
+		</tr>
+		<tr ng-repeat="membership in memberships | orderBy:propertyName:reverse">
+			<td><a href="{{basePath}}civicrm/contact/view?reset=1&cid={{membership.contact_id}}">{{membership.name}}</a></td>
+			<td>{{membership.type}}</td>
+			<td>{{membership.start_date | formatData}}</td>
+			<td ng-show="membership.end_date">{{membership.end_date | formatData}}</td>
+			<td ng-show="!membership.end_date">&infin;</td>
+		</tr>
+	</table>
+
+</div>

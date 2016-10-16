@@ -1,0 +1,20 @@
+/* Add any CSS rules for Angular module "civicrm" */
+.memberships {
+	border-collapse: collapse;
+}
+.memberships th {
+	border-bottom: 1px solid;
+}
+.memberships td, .memberships th {
+	border-left: 1px solid;
+	padding: 5px 10px;
+}
+.memberships td:first-child, .memberships th:first-child {
+	border-left: none;
+}
+.sortorder:after {
+	content: '\25b2';
+}
+.sortorder.reverse:after {
+	content: '\25bc';
+}
