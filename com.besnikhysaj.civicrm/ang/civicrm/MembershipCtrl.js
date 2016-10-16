@@ -71,18 +71,22 @@
 				start_date = [];
 				if(filter.start_date){
 					start_date = moment(filter.start_date).format("YYYY-MM-DD");
+					tableName = moment(filter.start_date).format("DD.MM.YYYY");
 				}
 				if(filter.from_start_date){
 					start_date = {">=" : moment(filter.from_start_date).format("YYYY-MM-DD")};
+					tableName = moment(filter.from_start_date).format("DD.MM.YYYY");
 				}
 				if(filter.to_start_date){
 					start_date = {"<=" : moment(filter.to_start_date).format("YYYY-MM-DD")};
+					tableName = moment(filter.to_start_date).format("DD.MM.YYYY");
 				}
 				if(filter.from_start_date && filter.to_start_date){
 					start_date = {
 						">=" : moment(filter.from_start_date).format("YYYY-MM-DD"),
 						"<=" : moment(filter.to_start_date).format("YYYY-MM-DD")
 					};
+					tableName = moment(filter.from_start_date).format("DD.MM.YYYY") + " - " + moment(filter.to_start_date).format("DD.MM.YYYY");
 				}
 				CRM.api3('Membership', 'get', {
 					sequential: 1,
@@ -93,7 +97,7 @@
 					console.log(result);
 					setTimeout(function () {
 						$scope.$apply(function () {
-							$scope.tableName = ts('Search Results');
+							$scope.tableName = ts('Search Results for Start Date ' + tableName);
 							$scope.memberships = fixKeys(result);
 						});
 					});
@@ -112,11 +116,13 @@
 					console.log(result);
 					setTimeout(function () {
 						$scope.$apply(function () {
-							$scope.tableName = ts('Search Results');
+							$scope.tableName = ts('Search Results for membership name "' + membersName + '"');
 							$scope.memberships = fixKeys(result);
 						});
 					});
 				});
+			} else {
+				$scope.tableName = ts('List of Members');
 			}
 		};
 
